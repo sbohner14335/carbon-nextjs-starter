@@ -4,6 +4,13 @@ const localStorageKeys = {
 };
 
 export const getLocalStorageValues = () => {
+  if (typeof window === 'undefined') {
+    return {
+      themeSetting: 'system',
+      headerInverse: false,
+    };
+  }
+
   const themeSetting =
     window.localStorage.getItem(localStorageKeys.themeSetting) || 'system';
   const headerInverse =
@@ -17,6 +24,10 @@ export const getLocalStorageValues = () => {
 };
 
 export const setLocalStorageValues = (values) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
   if (values) {
     const keys = Object.keys(localStorageKeys);
 

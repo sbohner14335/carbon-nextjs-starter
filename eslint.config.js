@@ -25,9 +25,17 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 export default [
-  { ignores: ['dist', 'vite.config.js'] },
   {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
+    ignores: [
+      'dist',
+      'vite.config.js',
+      'app/**/*.ts',
+      'app/**/*.tsx',
+      'next-env.d.ts',
+    ],
+  },
+  {
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
     ignores: ['dist', 'vite.config.js'],
     languageOptions: {
       /* added (globals.node) - for server side elements */
@@ -44,9 +52,10 @@ export default [
       },
       'import/resolver': {
         node: {
-          extensions: ['.js', '.jsx'],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
       },
+      'import/core-modules': ['next', 'next/navigation', 'next/link'],
     },
   },
   importPlugin.flatConfigs.recommended,

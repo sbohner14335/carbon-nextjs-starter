@@ -4,8 +4,11 @@
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
+'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Header,
   HeaderGlobalAction,
@@ -21,13 +24,10 @@ import {
 } from '@carbon/react';
 
 import {
-  LogoGithub,
-  MagicWand,
   Search,
   Switcher as SwitcherIcon,
   UserAvatar,
 } from '@carbon/icons-react';
-import { Link as RouterLink, useLocation } from 'react-router';
 import ProfilePanel from '../profilePanel/ProfilePanel';
 
 import { routesInHeader, routesInSideNav } from '../../routes/config';
@@ -35,7 +35,7 @@ import { NavHeaderItems } from './NavHeaderItems';
 import { NavSideItems } from './NavSideItems';
 
 export const Nav = () => {
-  const location = useLocation();
+  const pathname = usePathname();
   const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -60,14 +60,14 @@ export const Nav = () => {
           isActive={isSideNavExpanded}
           aria-expanded={isSideNavExpanded}
         />
-        <HeaderName as={RouterLink} to="/" prefix="Carbon">
+        <HeaderName as={Link} href="/" prefix="Carbon">
           React starter template
         </HeaderName>
         {routesInHeader.length > 0 && (
           <HeaderNavigation aria-label="fed-at-ibm">
             <NavHeaderItems
               routesInHeader={routesInHeader}
-              currentPath={location.pathname}
+              currentPath={pathname}
             />
           </HeaderNavigation>
         )}
@@ -101,14 +101,14 @@ export const Nav = () => {
             <HeaderSideNavItems hasDivider>
               <NavHeaderItems
                 routesInHeader={routesInHeader}
-                currentPath={location.pathname}
+                currentPath={pathname}
               />
             </HeaderSideNavItems>
           )}
 
           <NavSideItems
             routesInSideNav={routesInSideNav}
-            currentPath={location.pathname}
+            currentPath={pathname}
           />
         </SideNavItems>
       </SideNav>

@@ -1,5 +1,7 @@
+'use client';
+
 import { HeaderMenu, HeaderMenuItem } from '@carbon/react';
-import { Link as RouterLink } from 'react-router';
+import Link from 'next/link';
 
 export const NavHeaderItems = ({ routesInHeader, currentPath }) => (
   <>
@@ -13,8 +15,8 @@ export const NavHeaderItems = ({ routesInHeader, currentPath }) => (
           >
             {carbon.subMenu.map((subRoute) => (
               <HeaderMenuItem
-                as={RouterLink}
-                to={subRoute.path}
+                as={Link}
+                href={subRoute.path}
                 key={subRoute.path}
                 isActive={subRoute.path === currentPath}
               >
@@ -24,9 +26,9 @@ export const NavHeaderItems = ({ routesInHeader, currentPath }) => (
           </HeaderMenu>
         ) : (
           <HeaderMenuItem
-            as={RouterLink}
+            as={Link}
             key={path}
-            to={path}
+            href={path}
             isActive={path === currentPath}
           >
             {carbon?.label}

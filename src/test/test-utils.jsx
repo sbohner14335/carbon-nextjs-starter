@@ -6,14 +6,18 @@
  */
 
 import { render as rtlRender } from '@testing-library/react';
-import { BrowserRouter } from 'react-router';
 import { StrictMode } from 'react';
-import { Router } from '../routes';
+import { vi } from 'vitest';
 import { ThemeProvider } from '../context/ThemeContext';
+import { ThemeLayout } from '../layouts/theme-layout';
+
+vi.mock('next/navigation', () => ({
+  usePathname: () => window.location.pathname,
+}));
 
 /**
- * Renders a component with all providers (Theme, Router, etc.)
- * Use this for page components or components that need routing
+ * Renders a component with all providers (Theme, app shell, etc.)
+ * Use this for page components or components that need layout
  */
 export function renderWithAllProviders(
   ui,
@@ -22,13 +26,11 @@ export function renderWithAllProviders(
   // Push the route we want to test
   window.history.pushState({}, 'Test page', route);
 
-  function Wrapper() {
+  function Wrapper({ children }) {
     return (
       <StrictMode>
         <ThemeProvider>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
+          <ThemeLayout>{children}</ThemeLayout>
         </ThemeProvider>
       </StrictMode>
     );
@@ -45,7 +47,9 @@ export function renderWithTheme(ui, renderOptions = {}) {
   function Wrapper({ children }) {
     return (
       <StrictMode>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <ThemeLayout>{children}</ThemeLayout>
+        </ThemeProvider>
       </StrictMode>
     );
   }

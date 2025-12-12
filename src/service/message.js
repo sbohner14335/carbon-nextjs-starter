@@ -6,21 +6,15 @@
  */
 
 /**
- * This file contains the functions that do async network requests
+ * Fetches a sample message from a placeholder API.
  */
+export const fetchMessage = async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
 
-export const getMessage = async (req, res) => {
-  try {
-    const response = await fetch(
-      // TODO: replace with actual endpoint URL
-      'https://jsonplaceholder.typicode.com/posts/1',
-    );
-    // The sample endpoint returns a blogpost
-    const blogpost = await response.json();
-
-    // Return the blogpost's title
-    res.json({ message: blogpost.title });
-  } catch {
-    res.status(500).json({ message: 'Failed to fetch message' });
+  if (!response.ok) {
+    throw new Error('Failed to fetch message');
   }
+
+  const blogpost = await response.json();
+  return blogpost.title;
 };

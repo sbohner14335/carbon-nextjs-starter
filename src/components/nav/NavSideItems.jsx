@@ -1,10 +1,12 @@
+'use client';
+
 import { SideNavLink, SideNavMenu, SideNavMenuItem } from '@carbon/react';
-import { Link as RouterLink } from 'react-router';
+import Link from 'next/link';
 
 const destinationProps = (path, carbon, currentPath) =>
   path
     ? {
-        as: RouterLink,
+        as: Link,
         isActive: path === currentPath,
       }
     : {

@@ -12,9 +12,13 @@
 export const getMessage = async () => {
   try {
     const response = await fetch('/api/message');
+    if (!response.ok) {
+      throw new Error('Request failed');
+    }
     const data = await response.json();
     return data.message;
   } catch (error) {
-    throw new Error('Failed to load message: ', error);
+    console.error('Failed to load message', error);
+    throw new Error('Failed to load message');
   }
 };

@@ -4,13 +4,14 @@
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
  */
+'use client';
+import { usePathname } from 'next/navigation';
+
 import { CommonHeader } from '../../components/commonHeader/CommonHeader';
 import { PageLayout } from '../../layouts/page-layout';
 
-import { useLocation } from 'react-router';
-
 const Placeholder = () => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   return (
     <PageLayout
@@ -24,7 +25,7 @@ const Placeholder = () => {
           <>This page is here to help demonstrate the global navigation.</>,
           <>
             You are at the location served from route{' '}
-            <em>&lsquo;{location.pathname}&rsquo;</em>.
+            <em>&lsquo;{pathname}&rsquo;</em>.
           </>,
           <>Maintained by fed-at-ibm, a chapter of the OIC.</>,
         ]}
